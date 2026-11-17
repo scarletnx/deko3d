@@ -581,6 +581,12 @@ In the case of `DkCounter_ZcullStats`, it reports four 32-bit values relating to
 
 Note that all three functions entail a tiled cache flush.
 
+```c
+void dkCmdBufSetRenderEnable(DkCmdBuf obj, DkRenderEnableMode mode, DkGpuAddr addr);
+```
+
+`dkCmdBufSetRenderEnable` decides whether the draws, clears and blits recorded after it are done: never, always (the default), or depending on two 64-bit values the GPU reads when it gets to them, at `addr` and `addr+16`: the counters of two consecutive counter reports, for example the samples passed before and after a draw, which is how an occlusion query skips work. Only `DkRenderEnableMode_IfEqual` and `DkRenderEnableMode_IfNotEqual` read `addr`.
+
 ### Command capture and replay
 
 ```c

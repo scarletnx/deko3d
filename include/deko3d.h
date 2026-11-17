@@ -244,6 +244,14 @@ typedef enum DkCounter
     DkCounter_TransformFeedbackPrimitivesWritten = 16,
 } DkCounter;
 
+typedef enum DkRenderEnableMode
+{
+	DkRenderEnableMode_Never      = 0, // draws, clears and blits after it are skipped
+	DkRenderEnableMode_Always     = 1, // the default
+	DkRenderEnableMode_IfEqual    = 3, // done when the 64-bit words at addr and addr+16 are equal
+	DkRenderEnableMode_IfNotEqual = 4, // done when they differ
+} DkRenderEnableMode;
+
 typedef struct DkCmdBufMaker
 {
 	DkDevice device;
@@ -1327,6 +1335,7 @@ void dkCmdBufCopyImageToBuffer(DkCmdBuf obj, DkImageView const* srcView, DkImage
 void dkCmdBufReportCounter(DkCmdBuf obj, DkCounter type, DkGpuAddr addr);
 void dkCmdBufReportValue(DkCmdBuf obj, uint32_t value, DkGpuAddr addr);
 void dkCmdBufResetCounter(DkCmdBuf obj, DkCounter type);
+void dkCmdBufSetRenderEnable(DkCmdBuf obj, DkRenderEnableMode mode, DkGpuAddr addr);
 
 DkQueue dkQueueCreate(DkQueueMaker const* maker);
 void dkQueueDestroy(DkQueue obj);

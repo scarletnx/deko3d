@@ -487,6 +487,14 @@ engine _3D 0xB197;
 	4 AlphaToOne bool;
 );
 
+0x554 SetRenderEnable iova; // SET_RENDER_ENABLE_A and B: what the conditional modes compare
+0x556 SetRenderEnableMode enum (
+	0 False;
+	1 True;
+	2 Conditional;
+	3 RenderIfEqual;
+	4 RenderIfNotEqual;
+);
 0x557 SetTexSamplerPool iova;
 0x559 SetTexSamplerPoolMaximumIndex;
 

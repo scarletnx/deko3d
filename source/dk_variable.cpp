@@ -302,3 +302,16 @@ void dkCmdBufResetCounter(DkCmdBuf obj, DkCounter type)
 
 	w << Cmd(3D, ResetCounter{}, dkTypeToMaxwell[type]);
 }
+
+void dkCmdBufSetRenderEnable(DkCmdBuf obj, DkRenderEnableMode mode, DkGpuAddr addr)
+{
+	DK_ENTRYPOINT(obj);
+	bool conditional = mode == DkRenderEnableMode_IfEqual || mode == DkRenderEnableMode_IfNotEqual;
+	DK_DEBUG_BAD_INPUT(!conditional && mode != DkRenderEnableMode_Never && mode != DkRenderEnableMode_Always, "invalid mode");
+	DK_DEBUG_BAD_INPUT(conditional && addr == DK_GPU_ADDR_INVALID, "a conditional mode needs the address of the values it compares");
+	CmdBufWriter w{obj};
+	w.reserve(4);
+
+	// The unconditional modes read no memory: their address is 0, as the console's driver writes it
+	w << Cmd(3D, SetRenderEnable{}, Iova(conditional ? addr : 0), mode);
+}
