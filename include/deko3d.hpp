@@ -246,6 +246,7 @@ namespace dk
 		void drawIndirect(DkPrimitive prim, DkGpuAddr indirect);
 		void drawIndexed(DkPrimitive prim, uint32_t indexCount, uint32_t instanceCount, uint32_t firstIndex, int32_t vertexOffset, uint32_t firstInstance);
 		void drawIndexedIndirect(DkPrimitive prim, DkGpuAddr indirect);
+		void drawTexture(DkResHandle handle, DkDrawTextureRegion const& dstRegion, DkDrawTextureRegion const& srcRegion);
 		void dispatchCompute(uint32_t numGroupsX, uint32_t numGroupsY, uint32_t numGroupsZ);
 		void dispatchComputeIndirect(DkGpuAddr indirect);
 		void pushConstants(DkGpuAddr uboAddr, uint32_t uboSize, uint32_t offset, uint32_t size, const void* data);
@@ -980,6 +981,11 @@ namespace dk
 	inline void CmdBuf::drawIndexedIndirect(DkPrimitive prim, DkGpuAddr indirect)
 	{
 		::dkCmdBufDrawIndexedIndirect(*this, prim, indirect);
+	}
+
+	inline void CmdBuf::drawTexture(DkResHandle handle, DkDrawTextureRegion const& dstRegion, DkDrawTextureRegion const& srcRegion)
+	{
+		::dkCmdBufDrawTexture(*this, handle, &dstRegion, &srcRegion);
 	}
 
 	inline void CmdBuf::dispatchCompute(uint32_t numGroupsX, uint32_t numGroupsY, uint32_t numGroupsZ)

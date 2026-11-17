@@ -312,6 +312,19 @@ engine _3D 0xB197;
 
 0x40C CoverageModulationTable array[4];
 
+// DRAW_TEXTURE: a rectangle of a texture drawn onto the render targets with no program, as emulators read
+// it (yuzu's maxwell_3d.h DrawTexture). Writing DrawTextureSrcY0 draws.
+0x420 DrawTextureDstX0; // signed 20.12 fixed point, like every coordinate here
+0x421 DrawTextureDstY0;
+0x422 DrawTextureDstWidth;
+0x423 DrawTextureDstHeight;
+0x424 DrawTextureDxDu array[2]; // texels a pixel, signed 32.32 fixed point, low word first
+0x426 DrawTextureDyDv array[2];
+0x428 DrawTextureSampler; // index in the bound sampler descriptor set
+0x429 DrawTextureImage;   // index in the bound image descriptor set
+0x42A DrawTextureSrcX0;
+0x42B DrawTextureSrcY0;
+
 0x433 ColorReductionConfig0;
 
 0x438 ColorReductionConfig1;

@@ -1172,6 +1172,13 @@ typedef struct DkTransformFeedbackLayout
 	uint8_t varyings[DK_MAX_TRANSFORM_FEEDBACK_VARYINGS]; // output slot of each word, see DK_TFB_SLOT_*
 } DkTransformFeedbackLayout;
 
+// A rectangle of dkCmdBufDrawTexture, in pixels of the render target or texels of the texture
+typedef struct DkDrawTextureRegion
+{
+	float x0, y0; // the corner the rectangle starts at
+	float x1, y1; // the opposite one
+} DkDrawTextureRegion;
+
 typedef struct DkDrawIndirectData
 {
 	uint32_t vertexCount;
@@ -1347,6 +1354,7 @@ void dkCmdBufEndTransformFeedback(DkCmdBuf obj);
 void dkCmdBufSaveTransformFeedbackOffsets(DkCmdBuf obj, DkGpuAddr savedOffsets);
 void dkCmdBufResumeTransformFeedback(DkCmdBuf obj, DkGpuAddr savedOffsets);
 void dkCmdBufDrawTransformFeedback(DkCmdBuf obj, DkPrimitive prim, uint32_t stride, DkGpuAddr savedOffsets, uint32_t bufferId);
+void dkCmdBufDrawTexture(DkCmdBuf obj, DkResHandle handle, DkDrawTextureRegion const* dstRegion, DkDrawTextureRegion const* srcRegion);
 void dkCmdBufDispatchCompute(DkCmdBuf obj, uint32_t numGroupsX, uint32_t numGroupsY, uint32_t numGroupsZ);
 void dkCmdBufDispatchComputeIndirect(DkCmdBuf obj, DkGpuAddr indirect);
 void dkCmdBufPushConstants(DkCmdBuf obj, DkGpuAddr uboAddr, uint32_t uboSize, uint32_t offset, uint32_t size, const void* data);
