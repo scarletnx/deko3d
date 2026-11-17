@@ -259,6 +259,7 @@ namespace dk
 		void reportCounter(DkCounter type, DkGpuAddr addr);
 		void reportValue(uint32_t value, DkGpuAddr addr);
 		void resetCounter(DkCounter type);
+		void setRenderEnable(DkRenderEnableMode mode, DkGpuAddr addr = DK_GPU_ADDR_INVALID);
 	};
 
 	struct Queue : public detail::Handle<::DkQueue>
@@ -1044,6 +1045,11 @@ namespace dk
 	inline void CmdBuf::resetCounter(DkCounter type)
 	{
 		return ::dkCmdBufResetCounter(*this, type);
+	}
+
+	inline void CmdBuf::setRenderEnable(DkRenderEnableMode mode, DkGpuAddr addr)
+	{
+		return ::dkCmdBufSetRenderEnable(*this, mode, addr);
 	}
 
 	inline Queue QueueMaker::create() const
