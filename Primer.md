@@ -626,6 +626,12 @@ void dkCmdBufDrawIndexed(DkCmdBuf obj, DkPrimitive prim, uint32_t indexCount, ui
 void dkCmdBufDrawIndexedIndirect(DkCmdBuf obj, DkPrimitive prim, DkGpuAddr indirect);
 ```
 
+```c
+void dkCmdBufDrawTexture(DkCmdBuf obj, DkResHandle handle, DkDrawTextureRegion const* dstRegion, DkDrawTextureRegion const* srcRegion);
+```
+
+`dkCmdBufDrawTexture` draws the `srcRegion` rectangle of a texture (an image and a sampler of the bound descriptor sets, `dkMakeTextureHandle`) onto the `dstRegion` rectangle of the render targets, with no program and no vertices: the GPU's own texture draw. Coordinates are kept to 1/4096 of a pixel or texel, and the texels a pixel steps to 1/2^32.
+
 **Recommended reads**:
 - [vkCmdDraw](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDraw.html)
 - [vkCmdDrawIndirect](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawIndirect.html)
